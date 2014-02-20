@@ -75,7 +75,9 @@ public class VoronoiGenerator {
 			// if(deleted.find(e) != deleted.end()) { delete(e); deleted.erase(e); continue;}
 			if(e.pe) insertParabola(e.point);
 			else removeParabola(e);
-			//delete(e); // Needed for cleanup in C++, not in Java
+			
+			//delete(e); // Needed for cleanup in C++
+			e = null;
 		}
 		
 		finishEdge(root);

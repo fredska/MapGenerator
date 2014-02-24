@@ -56,8 +56,8 @@ public class VParabola {
 	public static VParabola getLeftParent(VParabola p){
 		VParabola par = p.parent;
 		VParabola pLast = p;
-		if(par == null) return par;
-		while(par.Left().equals(pLast)){
+		while(par != null && 
+				par.Left().equals(pLast)){
 			if(par.parent == null) return null;
 			pLast = par;
 			par = par.parent;
@@ -68,8 +68,8 @@ public class VParabola {
 	public static VParabola getRightParent(VParabola p){
 		VParabola par = p.parent;
 		VParabola pLast = p;
-		if(par == null) return null;
-		while(par.Right().equals(pLast)){
+		while(par != null && 
+				par.Right().equals(pLast)){
 			if(par.parent == null) return null;
 			pLast = par;
 			par = par.parent;
@@ -78,23 +78,17 @@ public class VParabola {
 	}
 	
 	public static VParabola getLeftChild(VParabola p){
-		if(p == null) return null;
 		VParabola par = p.Left();
-		if(par == null) return par;
-		while(!par.isLeaf) {
+		while(par != null && !par.isLeaf) {
 			par = par.Right();
-			if(par == null) return null;
 		}
 		return par;
 	}
 	
 	public static VParabola getRightChild(VParabola p){
-		if(p == null) return null;
 		VParabola par = p.Right();
-		if(par == null) return par;
-		while(!par.isLeaf) {
+		while(par != null && !par.isLeaf) {
 			par = par.Left();
-			if(par == null) return null;
 		}
 		return par;
 	}

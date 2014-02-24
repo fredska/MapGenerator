@@ -71,8 +71,9 @@ public class VoronoiGenerator {
 		while(!queue.isEmpty()){
 			e = queue.poll();
 			ly = e.point.y;
-			//Ignored Line for now in C++;
+			
 			// if(deleted.find(e) != deleted.end()) { delete(e); deleted.erase(e); continue;}
+			if(deleted.contains(e)){continue;}
 			if(e.pe) insertParabola(e.point);
 			else removeParabola(e);
 			
@@ -96,14 +97,14 @@ public class VoronoiGenerator {
 			root = new VParabola(p);
 			return;
 		}
-		if(root.isLeaf && (root.site.y - p.y < 1)){
+		if(root.isLeaf && (root.site.y - p.y < 1f)){
 			VPoint fp = root.site;
 			root.isLeaf = false;
 			root.setLeft(new VParabola(fp));
 			root.setRight(new VParabola(p));
-			VPoint s = new VPoint((p.x + fp.x) / 2, height);
+			VPoint s = new VPoint((p.x + fp.x) / 2f, height); //The beginning edge of the middle seats
 			points.add(s);
-			if(p.x > fp.x) root.edge = new VEdge(s, fp, p);
+			if(p.x > fp.x) root.edge = new VEdge(s, fp, p); //Decide which, left or right
 			else root.edge = new VEdge(s, p, fp);
 			edges.add(root.edge);
 			return;
@@ -135,6 +136,9 @@ public class VoronoiGenerator {
 		par.setRight(p2);
 		par.setLeft(new VParabola());
 		par.Left().edge = el;
+		
+		par.Left().setLeft(p0);
+		par.Left().setRight(p1);
 		
 		checkCircle(p0);
 		checkCircle(p2);
@@ -195,9 +199,9 @@ public class VoronoiGenerator {
 		if(n.isLeaf){n = null; return;}
 		float mx;
 		if(n.edge.getDirection().x > 0f)
-			mx = (width >= (n.edge.getStart().x + 10))? width: n.edge.getStart().x + 10;
+			mx = (width >= (n.edge.getStart().x))? width: n.edge.getStart().x;
 		else
-			mx = (width < (n.edge.getStart().x + 10))? width: n.edge.getStart().x + 10;	
+			mx = (width < (n.edge.getStart().x))? width: n.edge.getStart().x;	
 		
 		VPoint end = new VPoint(mx, mx * n.edge.getF() + n.edge.getG());
 		n.edge.setEnd(end);
@@ -262,8 +266,11 @@ public class VoronoiGenerator {
 		VParabola lp = VParabola.getLeftParent(b);
 		VParabola rp = VParabola.getRightParent(b);
 		
-		VParabola a = VParabola.getLeftChild(lp);
-		VParabola c = VParabola.getRightChild(rp);
+		VParabola a = null, c = null;
+		if(lp != null)
+			a = VParabola.getLeftChild(lp);
+		if (rp != null)
+			c = VParabola.getRightChild(rp);
 		
 		if((a == null) || (c == null) || (a.site.equals(c.site))) return;
 		

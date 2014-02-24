@@ -8,6 +8,18 @@ public class VPoint {
 		this.y = y;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof VPoint)) return false;
+		VPoint vPoint = (VPoint)obj;
+		return (vPoint.x == this.x) && (vPoint.y == this.y);
+	}
+	
+	@Override
+	public String toString(){
+		return "(" + x + "," + y + ")";
+	}
+
 	public float getX() {
 		return x;
 	}

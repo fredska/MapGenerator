@@ -16,15 +16,15 @@ public class VoronoiGeneratorTest {
 	@Test
 	public void test() {
 		VoronoiGenerator vg = new VoronoiGenerator();
-		
+		int width = 100, height = 100;
 		List<VPoint> points = new LinkedList<VPoint>();
-		points.add(new VPoint(10, 10));
-		points.add(new VPoint(30, 20));
-		points.add(new VPoint(20, 30));
-		points.add(new VPoint(80, 40));
-		points.add(new VPoint(70, 50));
-		points.add(new VPoint(60, 60));
-		List<VEdge> edges = vg.getEdges(points, 100, 100);
+		//Initialize points here
+		points.add(new VPoint(width * 0.1f, height * 0.11f));
+		points.add(new VPoint(width * 0.1f, height * 0.9f));
+		points.add(new VPoint(width / 2f, height / 2f));
+		points.add(new VPoint(width * 0.91f, height * 0.15f));
+		points.add(new VPoint(width * 0.915f, height * 0.915f));
+		List<VEdge> edges = vg.getEdges(points, width, height);
 		assertTrue(true);
 	}
 

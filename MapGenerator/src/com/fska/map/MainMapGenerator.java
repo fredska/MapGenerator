@@ -8,7 +8,7 @@ public class MainMapGenerator extends Game {
 	@Override
 	public void create() {		
 		ScreenManager.getInstance().initialize(this);
-		ScreenManager.getInstance().show(MapGenScreen.VORONOI);
+		ScreenManager.getInstance().show(MapGenScreen.PERLIN);
 	}
 
 	@Override

@@ -8,6 +8,12 @@ public enum MapGenScreen {
 		protected Screen getScreenInstance(){
 			return new VoronoiScreen();
 		}
+	},
+	PERLIN{
+		@Override
+		protected Screen getScreenInstance(){
+			return new PerlinNoiseScreen();
+		}
 	};
 	protected abstract Screen getScreenInstance();
 }
